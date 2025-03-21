@@ -44,6 +44,7 @@ export default function LoginPage() {
 
       router.push(callbackUrl)
     } catch (error) {
+      console.error(error);
       setError("An error occurred. Please try again.")
       setLoading(false)
     }
@@ -55,7 +56,7 @@ export default function LoginPage() {
         <div className="text-center">
           <h1 className="text-3xl font-bold">Sign in to your account</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="text-primary hover:underline">
               Create an account
             </Link>

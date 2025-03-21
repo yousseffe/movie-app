@@ -1,6 +1,7 @@
 import mongoose, { Schema, type Document } from "mongoose"
 
 export interface IMovieRequest extends Document {
+  
   title: string
   description: string
   movie: mongoose.Types.ObjectId

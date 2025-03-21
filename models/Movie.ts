@@ -1,6 +1,7 @@
 import mongoose, { Schema, type Document } from "mongoose"
 
 export interface IMovie extends Document {
+  
   titleEnglish: string
   titleArabic: string
   year: number

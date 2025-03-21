@@ -1,6 +1,7 @@
 import mongoose, { Schema, type Document } from "mongoose"
 
 export interface IGenre extends Document {
+  
   nameEnglish: string
   nameArabic: string
   status: boolean

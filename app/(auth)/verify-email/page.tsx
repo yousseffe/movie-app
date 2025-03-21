@@ -34,6 +34,7 @@ export default function VerifyEmailPage() {
           setMessage(result.error || "Verification failed. Please try again.")
         }
       } catch (error) {
+        console.log(error)
         setStatus("error")
         setMessage("An unexpected error occurred. Please try again.")
       }

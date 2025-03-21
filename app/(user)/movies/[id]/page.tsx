@@ -4,20 +4,22 @@ import { Plus } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { getMovie } from "@/app/actions/movie"
-import { notFound } from "next/navigation"
+import { notFound, useParams } from "next/navigation"
 import { addToWatchlist } from "@/app/actions/watchlist"
 import { getMovies } from "@/app/actions/movie"
 import VideoPlayer from "@/components/video-player"
 import MovieAccessChecker from "@/components/movie-access-cheacker"
 
-export default async function MovieDetailPage({
-  params,
-  searchParams,
-}: {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
-  const result = await getMovie(params.id)
+// export default async function MovieDetailPage({
+//   params,
+//   searchParams,
+// }: {
+//   params: { id: string }
+//   searchParams: { [key: string]: string | string[] | undefined }
+// }) {
+export default async function MovieDetailPage() {
+  const {id} = useParams()
+  const result = await getMovie(id as string)
 
   if (!result.success || !result.data) {
     notFound()
@@ -41,7 +43,7 @@ export default async function MovieDetailPage({
   : []
 
 
-  const requestSuccess = searchParams.requestSuccess === "true"
+  // const requestSuccess = searchParams.requestSuccess === "true"
 
   return (
     <div className="flex flex-col">
@@ -104,7 +106,7 @@ export default async function MovieDetailPage({
         </div>
       </section>
 
-      {requestSuccess && (
+      {/* {requestSuccess && (
         <div className="container py-4">
           <div className="bg-green-50 border border-green-200 text-green-800 rounded-md p-4">
             <div className="flex">
@@ -125,7 +127,7 @@ export default async function MovieDetailPage({
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Content Section */}
       <section className="container py-12">

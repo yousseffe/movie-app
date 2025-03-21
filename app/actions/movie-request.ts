@@ -1,8 +1,3 @@
-import { requestMovie } from '@/app/actions/movie-request';
-import { requestMovie } from '@/app/actions/movie-request';
-import { requestMovie } from '@/app/actions/movie-request';
-// import { requestMovie } from '@/app/actions/movie-request';
-"use server"
 
 import { z } from "zod"
 import { getServerSession } from "next-auth/next"
@@ -30,7 +25,7 @@ export async function createMovieRequest(data: z.infer<typeof requestSchema>) {
     const request = new MovieRequest({
       title: validatedData.title,
       description: validatedData.description,
-      user: session.user.id,
+      user: session?.user?.id,
     })
 
     await request.save()

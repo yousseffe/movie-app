@@ -141,7 +141,7 @@ export default function ProfilePage() {
                       Start adding movies to your watchlist to keep track of what you want to watch.
                     </p>
                     <Button className="mt-4" asChild>
-                      <a href="/movies">Browse Movies</a>
+                    <Link href="/movies/">Movies</Link>
                     </Button>
                   </div>
                 ) : (

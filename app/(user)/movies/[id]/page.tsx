@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus } from "lucide-react"
@@ -9,39 +10,40 @@ import { addToWatchlist } from "@/app/actions/watchlist"
 import { getMovies } from "@/app/actions/movie"
 import VideoPlayer from "@/components/video-player"
 import MovieAccessChecker from "@/components/movie-access-cheacker"
+import { useEffect, useState } from "react"
 
-// export default async function MovieDetailPage({
-//   params,
-//   searchParams,
-// }: {
-//   params: { id: string }
-//   searchParams: { [key: string]: string | string[] | undefined }
-// }) {
-export default async function MovieDetailPage() {
+
+export default  function MovieDetailPage() {
   const {id} = useParams()
-  const result = await getMovie(id as string)
+  const [movie, setMovie] = useState(null);
+  const [relatedMovies, setRelatedMovies] = useState([]);
+  useEffect(() => {
+    const fetchMovieData = async () => {
+      if (!id) return;
+      const result = await getMovie(id as string);
+      if (!result.success || !result.data) {
+        notFound();
+        return;
+      }
+      setMovie(result.data);
 
-  if (!result.success || !result.data) {
-    notFound()
-  }
+      const relatedMoviesResult = await getMovies({
+        status: "published",
+        genre: result.data.genre,
+        // year: movie.year,
+        sort: "newest",
+        limit: 5,
+      });
 
-  const movie = result.data
+      setRelatedMovies(
+        relatedMoviesResult.success
+          ? relatedMoviesResult.data.filter(m => m._id.toString() !== result.data._id.toString()).slice(0, 3)
+          : []
+      );
+    };
 
-  // Get related movies (in a real app, you would have a recommendation algorithm)
-  const relatedMoviesResult = await getMovies({
-    status: "published",       // Only get published movies
-    genre: movie.genre,        // Match movies from the same genre
-    // year: movie.year,          // (Optional) Get movies from the same year
-    sort: "newest",            // Show the newest movies first
-    limit: 5,                  // Fetch more movies (in case some get filtered out)
-  });
-
-  const relatedMovies = relatedMoviesResult.success
-  ? relatedMoviesResult?.data
-      ?.filter((m) => m._id.toString() !== movie._id.toString())
-      .slice(0, 3)
-  : []
-
+    fetchMovieData();
+  }, [id]);
 
   // const requestSuccess = searchParams.requestSuccess === "true"
 

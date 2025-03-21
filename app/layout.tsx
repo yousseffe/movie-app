@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Vidoe - Movie Management Platform",
   description: "A comprehensive platform for managing movies and content",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

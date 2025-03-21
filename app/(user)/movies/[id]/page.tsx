@@ -85,7 +85,6 @@ export default  function MovieDetailPage() {
               <div className="flex flex-wrap gap-3">
                 <form
                   action={async () => {
-                    "use server"
                     await addToWatchlist(movie._id)
                   }}
                 >
